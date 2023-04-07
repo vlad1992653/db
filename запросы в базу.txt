@@ -1,0 +1,105 @@
+
+______________________create - создание______________________________________________________
+INSERT INTO `arctiles_categories` (`title`) VALUES ("природа");
+Вставим в табл. arctiles_categories со строкой `title` значение "природа"
+
+INSERT INTO `articles` (`title`, `text`, `categorie_id`, `pubdate`) VALUES ('природа', ' основной объект изучения естественных наук.', '4', NOW());
+Вставим в табл. arctiles со строками `title`, `text`, `categorie_id`, `pubdate`  значения 'природа', ' основной объект изучения естественных наук.', '4', NOW()
+// NOW() - отобразит текущую дату
+
+_________________________read - читать_______________________________________________
+SELECT * FROM `arctiles_categories`
+выбрать все поля из табл. arctiles_categories
+
+SELECT `title` FROM `arctiles_categories`;
+выбрать поле title из табл. arctiles_categories
+
+SELECT title,categorie_id,pubdate,views FROM `articles`;
+выбрать поля title,categorie_id,pubdate,views в форме articles`
+
+SELECT text FROM `articles` WHERE `title` = "футбол";
+выбрать поле text из  табл. articles где поле`title` = "футбол"
+
+SELECT text FROM `articles` WHERE `id` = 2;
+выбрать поле text из  табл. articles где  id = 2
+
+SELECT text FROM `articles` WHERE `views` < 2;
+выбрать поле text из  табл. articles где views < 2;
+
+SELECT * FROM `articles` ORDER BY `views`;
+Выбери все из таблицы `articles`и отсортирую по полю views
+
+SELECT * FROM `articles` ORDER BY `views` DESC;
+Выбери все из таблицы `articles`и отсортирую по полю views c инверсией
+
+
+SELECT * FROM `abonents`
+выбрать все поля из таблицы `abonents`
+
+SELECT name FROM `abonents`
+выбрать  поля (столбец) name из таблицы `abonents`
+
+SELECT name, id  FROM `abonents`
+выбрать  поля (столбцы) name и id из таблицы `abonents`
+
+SELECT * FROM `abonents` WHERE id = 1
+выбрать все поля из таблицы `abonents` где поле id = 1
+
+SELECT * FROM `telephones`
+выбрать все поля из таблицы `telephones`
+
+SELECT * FROM `telephones` WHERE abonent_id = 1
+выбрать все поля из таблицы `telephones` где поле abonent_id = 1
+
+SELECT telephones.number  FROM `telephones` 
+выбрать поле  number таблицы telephones(указание конкретной таб.) из таблицы `telephones
+
+SELECT telephones.number  FROM `telephones` JOIN `abonents` ON  telephones.abonent_id = abonent_id
+выбрать поле  number из таблицы telephones присоединив таблицу `abonents` на  telephones.abonent_id = abonent_id
+
+SELECT abonents.name, telephones.number,  telephones.type FROM `telephones` JOIN `abonents` ON  telephones.abonent_id = abonent_id
+выбрать поле  number из таблицы telephones присоединив таблицу `abonents` на  telephones.abonent_id = abonent_id
+
+
+SELECT abonents.name, telephones.number,  telephones.type FROM `telephones` JOIN `abonents` ON  telephones.abonent_id = abonents.id WHERE abonents.id = 1
+выбрать поля name табицы `abonents`, number таблицы `telephones`, type табицы `telephones` из табиц `telephones` и (присоединенный) `abonents` если (на) 
+поля abonent_id тбл. `telephones`и id тбл. `abonents` равны и где поле id в тбл. `abonents` равно 1
+
+пагенация______________
+SELECT * FROM `articles` ORDER BY `views` DESC LIMIT 0, 10;
+SELECT * FROM `articles` ORDER BY `views` DESC LIMIT 10, 10;
+SELECT * FROM `articles` ORDER BY `views` DESC LIMIT 20, 10;  
+SELECT * FROM `articles` ORDER BY `views` DESC LIMIT 30, 10;  
+SELECT * FROM `articles` WHERE `views` > 2 ORDER BY `views` DESC LIMIT 0, 10;
+Выбери все из таблицы `articles`и отсортирую по полю views с отображением откуда и сколько пропстить
+
+
+________________ЗАПРОСЫ НА ОБНОВЛЕНИЕ__________________________________
+UPDATE `articles` SET `title` = " Как варить картофель с курицей?" WHERE  id = 3;
+обновить  таблицу `articles` задать в поле `title`= " Как варить картофель с курицей?" где id = 3
+
+UPDATE `articles` SET `views` = `views` + 33 WHERE  id = 3;
+обновить  таблицу `articles` задать в поле `views`=  `views`+1 где id = 3
+
+UPDATE `articles` SET `title` = " Как варить уху?",`views` = `views` + 33 WHERE  id = 1;
+обновить  таблицу `articles` задать в поле `title`=  " Как варить уху?" и `views`= `views`+33  где id = 1
+
+________________ЗАПРОСЫ НА УДАЛЕНИЕ__________________________________
+
+DELETE FROM `articles`  WHERE  id = 12;
+удалить из  таблицы`articles` поле где  id = 12
+
+DELETE FROM `articles`  WHERE  id = 10 OR  id = 11;
+удалить из  таблицы `articles` поля где  id = 10 или id = 11;
+
+DELETE FROM `articles`  WHERE  `title` = "test" AND `views` = 0;
+удалить из  таблицы `articles` поля где  `title` = "test" и views` = 0
+
+________________подключение к базе__________________________________
+сервер - 127.0.0.1   (localhost)
+имя пользователя - root
+пароль - 
+название БД - test
+connectdb = mysqli_connect('127.0.0.1', 'root', '', 'test');
+
+
